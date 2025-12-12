@@ -6,17 +6,30 @@
   "type": "module",
   "scripts": {
     "build": "tsc",
+    "build:all": "npm run build && cd services/nanoforge-target && npm run build && cd ../monitor && npm run build && cd ../../packages/oumi-lite && npm run build",
     "start": "node dist/index.js",
     "dev": "tsx src/index.ts",
     "demo": "tsx demo.ts",
     "test": "jest",
-    "lint": "eslint src --ext .ts"
+    "test:integration": "./scripts/integration-test.sh",
+    "test:selftest": "./scripts/selftest.sh",
+    "lint": "eslint src --ext .ts",
+    "docker:up": "docker compose up -d",
+    "docker:down": "docker compose down",
+    "docker:logs": "docker compose logs -f",
+    "docker:build": "docker compose build --no-cache",
+    "setup": "npm install && cd services/nanoforge-target && npm install && cd ../monitor && npm install && cd ../../packages/oumi-lite && npm install && cd ../../apps/dashboard && npm install"
   },
   "keywords": [
     "self-healing",
     "autonomous",
     "monitoring",
-    "orchestration"
+    "orchestration",
+    "kestra",
+    "cline",
+    "oumi",
+    "vercel",
+    "coderabbit"
   ],
   "author": "",
   "license": "MIT",
