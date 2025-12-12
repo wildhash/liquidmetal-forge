@@ -1,0 +1,116 @@
+id: liquid-metal-healing
+namespace: selfhealing
+
+description: Autonomous self-healing workflow that monitors, diagnoses, and fixes issues
+
+inputs:
+  - name: monitoring_interval
+    type: DURATION
+    defaults: PT10S
+  - name: targets
+    type: ARRAY
+    itemType: STRING
+    defaults:
+      - "http://localhost:3000"
+      - "http://localhost:8080"
+
+tasks:
+  # Monitor system health continuously
+  - id: monitor_health
+    type: io.kestra.core.tasks.flows.Trigger
+    interval: "{{ inputs.monitoring_interval }}"
+    tasks:
+      - id: collect_metrics
+        type: io.kestra.plugin.scripts.shell.Commands
+        runner: PROCESS
+        commands:
+          - echo "Collecting health metrics..."
+          - node dist/monitoring/collect.js
+        
+      - id: detect_anomalies
+        type: io.kestra.plugin.scripts.shell.Commands
+        runner: PROCESS
+        commands:
+          - echo "Detecting anomalies..."
+          - node dist/monitoring/detect.js
+
+  # Diagnose detected issues
+  - id: diagnose_issues
+    type: io.kestra.core.tasks.flows.Switch
+    value: "{{ outputs.detect_anomalies.anomaly_detected }}"
+    cases:
+      "true":
+        - id: run_diagnosis
+          type: io.kestra.plugin.scripts.shell.Commands
+          runner: PROCESS
+          commands:
+            - echo "Running root cause analysis..."
+            - node dist/diagnosis/analyze.js
+        
+        - id: score_actions
+          type: io.kestra.plugin.scripts.shell.Commands
+          runner: PROCESS
+          commands:
+            - echo "Scoring potential healing actions..."
+            - node dist/decision/score.js
+
+  # Apply healing actions
+  - id: apply_healing
+    type: io.kestra.core.tasks.flows.Switch
+    value: "{{ outputs.score_actions.should_heal }}"
+    cases:
+      "true":
+        - id: backup_state
+          type: io.kestra.plugin.scripts.shell.Commands
+          runner: PROCESS
+          commands:
+            - echo "Creating backup..."
+            - git add -A
+            - git commit -m "Backup before healing at $(date -u +%Y-%m-%dT%H:%M:%SZ)"
+        
+        - id: apply_fixes
+          type: io.kestra.plugin.scripts.shell.Commands
+          runner: PROCESS
+          commands:
+            - echo "Applying autonomous fixes..."
+            - node dist/healing/apply.js
+        
+        - id: verify_fixes
+          type: io.kestra.plugin.scripts.shell.Commands
+          runner: PROCESS
+          commands:
+            - echo "Verifying fixes..."
+            - node dist/monitoring/verify.js
+        
+        - id: code_review
+          type: io.kestra.plugin.scripts.shell.Commands
+          runner: PROCESS
+          commands:
+            - echo "Requesting AI code review..."
+            - node dist/review/submit.js
+
+  # Learn from results
+  - id: learn_from_action
+    type: io.kestra.plugin.scripts.shell.Commands
+    runner: PROCESS
+    commands:
+      - echo "Learning from healing action..."
+      - node dist/decision/learn.js
+
+  # Update dashboard
+  - id: update_dashboard
+    type: io.kestra.plugin.scripts.shell.Commands
+    runner: PROCESS
+    commands:
+      - echo "Updating real-time dashboard..."
+      - node dist/dashboard/update.js
+
+errors:
+  # Rollback on failure
+  - id: rollback_on_failure
+    type: io.kestra.plugin.scripts.shell.Commands
+    runner: PROCESS
+    commands:
+      - echo "Healing failed, rolling back..."
+      - git reset --hard HEAD~1
+      - node dist/dashboard/notify-failure.js
