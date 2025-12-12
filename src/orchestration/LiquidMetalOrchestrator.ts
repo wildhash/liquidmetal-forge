@@ -181,7 +181,7 @@ export class LiquidMetalOrchestrator {
   getStatus(): {
     isRunning: boolean;
     healingCycle: number;
-    learningStats: any;
+    learningStats: unknown;
     diagnosisHistory: number;
     healingHistory: number;
   } {

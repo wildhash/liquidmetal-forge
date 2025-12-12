@@ -1,9 +1,5 @@
-import { DiagnosisResult, HealingAction, HealingResult, Fix } from '../types.js';
+import { DiagnosisResult, HealingAction, Fix, HealthMetric } from '../types.js';
 import { promises as fs } from 'fs';
-import { exec } from 'child_process';
-import { promisify } from 'util';
-
-const execAsync = promisify(exec);
 
 /**
  * Autonomous Healer - Applies fixes to restore system health
@@ -175,7 +171,7 @@ export class AutonomousHealer {
   /**
    * Collect current system metrics
    */
-  private async collectCurrentMetrics(): Promise<any[]> {
+  private async collectCurrentMetrics(): Promise<HealthMetric[]> {
     // In production, this would collect real metrics
     return [
       {
@@ -196,7 +192,7 @@ export class AutonomousHealer {
   /**
    * Calculate improvement percentage
    */
-  private calculateImprovement(before: any[], after: any[]): number {
+  private calculateImprovement(before: HealthMetric[], after: HealthMetric[]): number {
     if (before.length === 0 || after.length === 0) {
       return 0;
     }

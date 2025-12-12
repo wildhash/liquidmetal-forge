@@ -69,7 +69,7 @@ export interface LearningMemory {
   anomalyPattern: string;
   healingAction: string;
   effectiveness: number;
-  context: Record<string, any>;
+  context: Record<string, unknown>;
 }
 
 export interface DecisionScore {

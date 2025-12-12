@@ -35,6 +35,10 @@ export class DiagnosisEngine {
    */
   private async identifyRootCause(anomaly: Anomaly): Promise<string> {
     // Analyze metrics to determine root cause
+    if (anomaly.metrics.length === 0) {
+      return `Performance degradation detected in ${anomaly.type}`;
+    }
+
     const primaryMetric = anomaly.metrics[0];
 
     if (primaryMetric.metricName === 'response_time' && primaryMetric.value > 3000) {

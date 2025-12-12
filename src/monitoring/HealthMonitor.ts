@@ -88,7 +88,7 @@ export class HealthMonitor {
   /**
    * Measure response time for a target
    */
-  private async measureResponseTime(target: string): Promise<number> {
+  private async measureResponseTime(_target: string): Promise<number> {
     // Simulated measurement - in production, this would make actual HTTP requests
     return Math.random() * 2000;
   }
@@ -96,7 +96,7 @@ export class HealthMonitor {
   /**
    * Measure error rate for a target
    */
-  private async measureErrorRate(target: string): Promise<number> {
+  private async measureErrorRate(_target: string): Promise<number> {
     // Simulated measurement - in production, this would check actual error logs
     return Math.random() * 0.1;
   }
@@ -104,7 +104,7 @@ export class HealthMonitor {
   /**
    * Measure CPU usage for a target
    */
-  private async measureCpuUsage(target: string): Promise<number> {
+  private async measureCpuUsage(_target: string): Promise<number> {
     // Simulated measurement - in production, this would check system metrics
     return Math.random() * 100;
   }

@@ -1,4 +1,4 @@
-import { LearningMemory, DecisionScore, HealingAction } from '../types.js';
+import { LearningMemory, DecisionScore } from '../types.js';
 
 /**
  * Decision Engine - Uses Oumi-inspired learning to score and improve decisions
@@ -10,7 +10,7 @@ export class DecisionEngine {
   /**
    * Score a potential healing action based on historical data
    */
-  scoreAction(action: string, context: Record<string, any>): DecisionScore {
+  scoreAction(action: string, context: Record<string, unknown>): DecisionScore {
     const historicalData = this.findSimilarMemories(action, context);
     
     // Calculate base score
@@ -58,7 +58,7 @@ export class DecisionEngine {
     anomalyPattern: string,
     healingAction: string,
     effectiveness: number,
-    context: Record<string, any>
+    context: Record<string, unknown>
   ): void {
     const memoryId = `mem-${Date.now()}-${Math.random()}`;
     
@@ -88,7 +88,7 @@ export class DecisionEngine {
    */
   private findSimilarMemories(
     action: string,
-    context: Record<string, any>
+    _context: Record<string, unknown>
   ): LearningMemory[] {
     const similar: LearningMemory[] = [];
 
@@ -122,7 +122,7 @@ export class DecisionEngine {
    */
   private calculateContextSimilarity(
     memories: LearningMemory[],
-    currentContext: Record<string, any>
+    currentContext: Record<string, unknown>
   ): number {
     if (memories.length === 0) {
       return 0;
