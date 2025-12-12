@@ -11,13 +11,22 @@ coverage/
 *.swo
 .vercel
 .next/
-dashboard/node_modules/
-dashboard/.next/
-dashboard/out/
+out/
 *.backup-*
-src/api/
-src/database/
-src/middleware/
-src/config/
-src/workers/
-src/utils/
+
+# Service-specific ignores
+services/*/node_modules/
+services/*/dist/
+packages/*/node_modules/
+packages/*/dist/
+apps/*/node_modules/
+apps/*/.next/
+apps/*/out/
+
+# Data directory (audit logs and learning memory can be committed for demo)
+# data/*.db
+# data/*.jsonl
+
+# Build artifacts
+*.tsbuildinfo
+

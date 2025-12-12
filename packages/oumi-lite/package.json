@@ -1,0 +1,17 @@
+{
+  "name": "@liquidmetal/oumi-lite",
+  "version": "1.0.0",
+  "description": "Oumi-compatible scoring and learning module for Liquid Metal Forge",
+  "main": "dist/index.js",
+  "type": "module",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "test": "jest"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "@types/node": "^20.10.6",
+    "typescript": "^5.3.3"
+  }
+}

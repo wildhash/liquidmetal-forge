@@ -1,0 +1,23 @@
+{
+  "name": "monitor-service",
+  "version": "1.0.0",
+  "description": "Monitor service that polls targets and emits degradation events",
+  "main": "dist/monitor.js",
+  "type": "module",
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/monitor.js",
+    "dev": "tsx src/monitor.ts"
+  },
+  "dependencies": {
+    "axios": "^1.6.0",
+    "ioredis": "^5.3.2",
+    "better-sqlite3": "^9.2.2"
+  },
+  "devDependencies": {
+    "@types/node": "^20.10.6",
+    "@types/better-sqlite3": "^7.6.8",
+    "typescript": "^5.3.3",
+    "tsx": "^4.7.0"
+  }
+}
