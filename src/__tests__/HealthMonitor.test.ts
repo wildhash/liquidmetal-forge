@@ -1,4 +1,4 @@
-import { HealthMonitor } from '../monitoring/HealthMonitor';
+import { HealthMonitor } from '../monitoring/HealthMonitor.js';
 
 describe('HealthMonitor', () => {
   let monitor: HealthMonitor;

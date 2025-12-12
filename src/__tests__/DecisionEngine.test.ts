@@ -1,4 +1,4 @@
-import { DecisionEngine } from '../decision/DecisionEngine';
+import { DecisionEngine } from '../decision/DecisionEngine.js';
 
 describe('DecisionEngine', () => {
   let engine: DecisionEngine;

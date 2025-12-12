@@ -85,21 +85,21 @@ export class DiagnosisEngine {
         type: 'code',
         file: affectedFiles[0] || 'src/api/handler.ts',
         description: 'Add database query optimization and caching',
-        changes: `
-// Before:
-const results = await db.query('SELECT * FROM large_table WHERE condition = ?', [value]);
-
-// After:
-const cacheKey = \`query:\${condition}:\${value}\`;
-let results = await cache.get(cacheKey);
-if (!results) {
-  results = await db.query(
-    'SELECT id, name, status FROM large_table WHERE condition = ? LIMIT 100',
-    [value]
-  );
-  await cache.set(cacheKey, results, 300); // 5 min cache
-}
-        `.trim(),
+        changes: [
+          '// Before:',
+          "const results = await db.query('SELECT * FROM large_table WHERE condition = ?', [value]);",
+          '',
+          '// After:',
+          'const cacheKey = `query:${condition}:${value}`;',
+          'let results = await cache.get(cacheKey);',
+          'if (!results) {',
+          '  results = await db.query(',
+          "    'SELECT id, name, status FROM large_table WHERE condition = ? LIMIT 100',",
+          '    [value]',
+          '  );',
+          '  await cache.set(cacheKey, results, 300); // 5 min cache',
+          '}'
+        ].join('\n'),
         priority: 1,
       });
     }

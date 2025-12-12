@@ -1,5 +1,5 @@
-import { DiagnosisEngine } from '../diagnosis/DiagnosisEngine';
-import { Anomaly } from '../types';
+import { DiagnosisEngine } from '../diagnosis/DiagnosisEngine.js';
+import { Anomaly } from '../types.js';
 
 describe('DiagnosisEngine', () => {
   let engine: DiagnosisEngine;
