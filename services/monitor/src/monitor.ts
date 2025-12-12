@@ -12,13 +12,13 @@ const TARGET_URL = process.env.TARGET_URL || 'http://localhost:3001';
 const REDIS_URL = process.env.REDIS_URL || 'redis://localhost:6379';
 const POLL_INTERVAL = parseInt(process.env.POLL_INTERVAL || '5000', 10);
 const STABILITY_THRESHOLD = parseFloat(process.env.STABILITY_THRESHOLD || '0.7');
+const DB_PATH = process.env.DB_PATH || join(process.cwd(), 'data', 'audit.db');
 
 // Redis client
 const redis = new Redis(REDIS_URL);
 
 // SQLite database for audit log
-const dbPath = join(__dirname, '../../data/audit.db');
-const db = new Database(dbPath);
+const db = new Database(DB_PATH);
 
 // Initialize database
 db.exec(`

@@ -198,10 +198,15 @@ app.post('/inject-fault', (req: Request, res: Response) => {
   });
 });
 
-// Helper function
+// Helper function - using memoization for efficiency
+const fibMemo = new Map<number, number>();
 function fibonacci(n: number): number {
   if (n <= 1) return n;
-  return fibonacci(n - 1) + fibonacci(n - 2);
+  if (fibMemo.has(n)) return fibMemo.get(n)!;
+  
+  const result = fibonacci(n - 1) + fibonacci(n - 2);
+  fibMemo.set(n, result);
+  return result;
 }
 
 app.listen(PORT, () => {

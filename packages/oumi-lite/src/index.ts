@@ -51,7 +51,10 @@ export class OumiLiteScorer {
   };
   
   constructor(learningPath?: string) {
-    this.learningPath = learningPath || join(process.cwd(), 'data', 'learning.jsonl');
+    // Use provided path, env var, or default to data/learning.jsonl
+    this.learningPath = learningPath || 
+      process.env.OUMI_LEARNING_PATH || 
+      join(process.cwd(), 'data', 'learning.jsonl');
     this.loadLearningRecords();
   }
   
