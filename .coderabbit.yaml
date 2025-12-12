@@ -1,0 +1,42 @@
+language: en
+early_access: false
+reviews:
+  profile: chill
+  request_changes_workflow: false
+  high_level_summary: true
+  poem: false
+  review_status: true
+  collapse_walkthrough: false
+  auto_review:
+    enabled: true
+    drafts: false
+    base_branches:
+      - main
+      - master
+  path_filters:
+    - "!**/*.md"
+    - "!**/*.json"
+    - "!**/package-lock.json"
+  auto_title_placeholder: "AI Code Review"
+  path_instructions:
+    - path: "src/healing/**/*.ts"
+      instructions: |
+        Review healing actions carefully for safety:
+        - Ensure proper backup mechanisms
+        - Verify rollback procedures
+        - Check for destructive operations
+        - Validate safety checks are in place
+    - path: "src/diagnosis/**/*.ts"
+      instructions: |
+        Ensure diagnosis logic is sound:
+        - Verify root cause analysis accuracy
+        - Check confidence calculations
+        - Review fix suggestions for appropriateness
+    - path: "src/monitoring/**/*.ts"
+      instructions: |
+        Review monitoring for performance:
+        - Check for efficient metric collection
+        - Ensure no memory leaks
+        - Verify threshold values are reasonable
+chat:
+  auto_reply: true
