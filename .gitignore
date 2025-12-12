@@ -10,3 +10,14 @@ coverage/
 *.swp
 *.swo
 .vercel
+.next/
+dashboard/node_modules/
+dashboard/.next/
+dashboard/out/
+*.backup-*
+src/api/
+src/database/
+src/middleware/
+src/config/
+src/workers/
+src/utils/
